@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     _ = require('lodash'),
     doctoc = require('doctoc/lib/transform'),
     del = require('del'),
-    $ = require('gulp-load-plugins')()
+    $ = require('gulp-load-plugins')(),
+    reactDocsPlugin = require('gulp-react-docs')
 
 // Helper vars
 var docsDest = 'docs';
@@ -29,18 +30,18 @@ date with the changes in the codebase. Please run `gulp` and commit the changes.
     });
 });
 
-// gulp.task('react-docs', function() {
-//     var mdTitle = '# React Component Reference';
+gulp.task('react-docs', function() {
+    var mdTitle = '# React Component Reference';
 
-//     return gulp.src('./src/**/*.js')
-//         .pipe(reactDocsPlugin({
-//             path: docsDest
-//         }))
-//         .pipe($.concat('README.md'))
-//         .pipe($.tap(function(file) {
-//             // Generate table of contents for components.md
-//             var mdWithToc = doctoc(file.contents.toString(), null, 2, mdTitle).data;
-//             file.contents = new Buffer(mdWithToc);
-//         }))
-//         .pipe(gulp.dest(docsDest));
-// });
+    return gulp.src('./src/**/*.js')
+        .pipe(reactDocsPlugin({
+            path: docsDest
+        }))
+        .pipe($.concat('README.md'))
+        .pipe($.tap(function(file) {
+            // Generate table of contents for components.md
+            var mdWithToc = doctoc(file.contents.toString(), null, 2, mdTitle).data;
+            file.contents = new Buffer(mdWithToc);
+        }))
+        .pipe(gulp.dest(docsDest));
+});
