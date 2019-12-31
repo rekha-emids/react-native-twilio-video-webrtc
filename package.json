@@ -24,7 +24,6 @@
   "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "gulp-react-docs": "^0.1.2",
     "react-docgen": "^2.15.0",
     "standard": "^10.0.3"
   },
